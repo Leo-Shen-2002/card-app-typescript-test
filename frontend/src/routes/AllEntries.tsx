@@ -26,8 +26,16 @@ export default function AllEntries(){
                             <button onClick={()=> {deleteEntry(entry.id as string)}} className="m-1 md:m-2 p-1 font-semibold rounded-md bg-red-500 hover:bg-red-700">✖</button>
                             <button onClick={()=> {navigate(`/edit/${entry.id}`, { replace: true });}} className="m-1 md:m-2 p-1 font-semibold rounded-md bg-blue-500 hover:bg-blue-700">🖊</button>
                         </div>
-                        <time className="text-right text-sm md:text-lg dark:text-gray-300">{new Date(entry.created_at.toString()).toLocaleDateString()}</time>
-                        <time className="text-right text-sm md:text-lg dark:text-gray-300">{new Date(entry.scheduled_date.toString()).toLocaleDateString()}</time>
+                        <div className="flex flex-col md:flex-row gap-2 md:gap-5">
+                            <div className="text-sm md:text-lg dark:text-gray-300">
+                                <span className="font-semibold">Created At: </span>
+                                {new Date(entry.created_at.toString()).toLocaleDateString()}
+                            </div>
+                            <div className="text-sm md:text-lg dark:text-gray-300">
+                                <span className="font-semibold">Scheduled: </span>
+                                {new Date(entry.scheduled_date.toString()).toLocaleDateString()}
+                            </div>
+                        </div>
                         </section>
                         
                     </div>
