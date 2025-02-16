@@ -16,8 +16,11 @@ interface ThemeProviderProps {
 export const ThemeProvider = ({ children }: ThemeProviderProps) => {
     const [darkMode, setDarkMode] = useState(() => {
         // Load theme from localStorage or default to system preference
-        return localStorage.getItem("darkMode") === "true" ||
-               window.matchMedia("(prefers-color-scheme: dark)").matches;
+        const storedPreference = localStorage.getItem("darkMode");
+        if (storedPreference !== null) {
+            return storedPreference === "true";
+        }
+        return window.matchMedia("(prefers-color-scheme: dark)").matches; // Default to system preference
     });
 
     useEffect(() => {
