@@ -11,9 +11,11 @@ export default function EditEntry(){
     const [newEntry,setNewEntry] = useState<Entry>(emptyEntry)
 
     useEffect(() =>{
-        const entry = entries.filter(entry=> entry.id == id)[0]
-        setNewEntry(entry)
-    },[])
+        const entry = entries.find(entry=> entry.id == id)
+        if (entry) {
+            setNewEntry(entry);
+        }
+    },[entries, id])
     const handleInputChange = (event: ChangeEvent<HTMLInputElement|HTMLTextAreaElement>) => {
         setNewEntry({
             ...newEntry,
@@ -23,6 +25,11 @@ export default function EditEntry(){
     const handleSend = (e: MouseEvent<HTMLButtonElement>) => {
         updateEntry(id as string,newEntry)
     }
+
+    if (!newEntry.title && !newEntry.description) {
+        return <p className="text-center mt-10 text-lg">Loading...</p>;
+    }
+
     return(
         <section className="flex justify-center flex-col w-fit ml-auto mr-auto mt-10 gap-5 bg-gray-300 p-8 rounded-md dark:bg-gray-800 shadow-md shadow-gray-500 dark:shadow-gray-900 m-3 p-4 rounded">
             <div className="flex flex-col">
